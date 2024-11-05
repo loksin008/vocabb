@@ -1,0 +1,38 @@
+import tkinter as tk
+import random
+
+class HeartRainApp(tk.Tk):
+    def __init__(self):
+        super().__init__()
+
+        self.title("Falling Red Hearts Animation")
+        self.geometry("800x400")
+        self.configure(bg="blue")
+
+        self.canvas = tk.Canvas(self, width=800, height=400, bg="blue")
+        self.canvas.pack()
+
+        self.hearts = []
+        self.create_hearts(1000)  # Create 1000 hearts
+
+        self.animate()
+
+    def create_hearts(self, num_hearts):
+        for _ in range(num_hearts):
+            x = random.randint(0, 780)  # Random x position
+            heart = self.canvas.create_text(x, random.randint(-20, 0), text='❤️', font=("Arial", 24), fill="red")
+            self.hearts.append(heart)
+
+    def animate(self):
+        for heart in self.hearts:
+            self.canvas.move(heart, 0, 8)  # Move downwards at a good speed
+            pos = self.canvas.coords(heart)
+            if pos[1] > 400:  # If the heart goes off the screen
+                self.canvas.move(heart, 0, -400)  # Reset to the top at a random x position
+                self.canvas.move(heart, random.randint(0, 780) - pos[0], 0)  # Randomize x position when resetting
+
+        self.after(50, self.animate)  # Update every 50 milliseconds
+
+if __name__ == "__main__":
+    app = HeartRainApp()
+    app.mainloop()
