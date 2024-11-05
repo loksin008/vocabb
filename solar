@@ -1,0 +1,80 @@
+import matplotlib.pyplot as plt
+
+class Planet:
+    def __init__(self, name, type, distance_from_sun, diameter, moons):
+        self.name = name
+        self.type = type
+        self.distance_from_sun = distance_from_sun  # in million km
+        self.diameter = diameter  # in km
+        self.moons = moons  # list of moons
+
+    def display_info(self):
+        print(f"Planet: {self.name}")
+        print(f"Type: {self.type}")
+        print(f"Distance from Sun: {self.distance_from_sun} million km")
+        print(f"Diameter: {self.diameter} km")
+        print(f"Moons: {', '.join(self.moons) if self.moons else 'None'}")
+        print()
+
+
+def generate_planet_image(planets):
+    # Create a figure for the plot
+    fig, ax = plt.subplots(figsize=(10, 8))
+    
+    # Define colors for planets
+    colors = {
+        'Mercury': 'gray',
+        'Venus': 'yellow',
+        'Earth': 'blue',
+        'Mars': 'red',
+        'Jupiter': 'orange',
+        'Saturn': 'gold',
+        'Uranus': 'lightblue',
+        'Neptune': 'darkblue',
+        'Pluto': 'lightgray',
+        'Sun': 'yellow'
+    }
+    
+    # Create a scatter plot for the Sun and planets
+    ax.scatter([0], [0], color=colors['Sun'], s=1000, label='Sun')
+    for planet in planets:
+        ax.scatter([planet.distance_from_sun], [0], color=colors[planet.name], s=planet.diameter / 10, label=planet.name)
+
+    # Add titles and labels
+    ax.set_title("Solar System: Sun and Planets")
+    ax.set_xlabel("Distance from Sun (million km)")
+    ax.set_ylabel("Planets")
+    ax.set_yticks([])  # Hide y-ticks
+    ax.legend()
+    plt.grid()
+    
+    # Show the plot
+    plt.savefig("solar_system.png")
+    plt.show()
+
+
+def main():
+    # Create planet instances
+    planets = [
+        Planet("Mercury", "Terrestrial", 57.91, 4880, []),
+        Planet("Venus", "Terrestrial", 108.21, 12104, []),
+        Planet("Earth", "Terrestrial", 149.6, 12742, ["Moon"]),
+        Planet("Mars", "Terrestrial", 227.92, 6779, ["Phobos", "Deimos"]),
+        Planet("Jupiter", "Gas Giant", 778.57, 139820, ["Io", "Europa", "Ganymede", "Callisto"]),
+        Planet("Saturn", "Gas Giant", 1430, 116460, ["Titan", "Rhea"]),
+        Planet("Uranus", "Ice Giant", 2870, 50724, ["Titania", "Oberon"]),
+        Planet("Neptune", "Ice Giant", 4500, 49244, ["Triton"]),
+        Planet("Pluto", "Dwarf Planet", 5900, 2377, ["Charon"])
+    ]
+    
+    # Display information about each planet
+    for planet in planets:
+        planet.display_info()
+    
+    # Generate an image of the solar system
+    generate_planet_image(planets)
+
+
+if __name__ == "__main__":
+    main()
+    
