@@ -18,7 +18,8 @@ echo "4. Colors"
 echo "5. Days of the Week"
 echo "6. Months"
 echo "7. Verbs"
-read -p "Enter your choice [1-7]: " choice
+echo "8. Exit"
+read -p "Enter your choice [1-8]: " choice
 
 # Define translations in associative arrays
 declare -A fruits=( ["Apple"]="सेब" ["Banana"]="केला" ["Orange"]="संतरा" ) # add more up to 30
@@ -73,7 +74,11 @@ case $choice in
             echo "$verb - ${verbs[$verb]}"
         done
         ;;
+    8)
+        echo "Exiting the script. Goodbye!"
+        exit 0
+        ;;
     *)
-        echo "Invalid choice. Please select a number from 1 to 7."
+        echo "Invalid choice. Please select a number from 1 to 8."
         ;;
 esac
