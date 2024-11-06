@@ -1,20 +1,78 @@
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
+#!/bin/bash
 
-fig, ax = plt.subplots()
-x, y = [], []
-line, = ax.plot([], [], lw=2)
+# Initialize the screen size
+width=50
+height=20
 
-def init():
-    ax.set_xlim(0, 10)
-    ax.set_ylim(0, 10)
-    return line,
+# Snake body represented by characters and color
+head="\e[31mO\e[0m"  # Red color for the snake head
+body="\e[31mo\e[0m"  # Red color for the snake body
 
-def update(frame):
-    x.append(frame)
-    y.append(frame ** 2)
-    line.set_data(x, y)
-    return line,
+# Snake initial position and length
+x=10
+y=10
+length=10  # Initial length of the snake
 
-ani = animation.FuncAnimation(fig, update, frames=range(10), init_func=init)
-plt.show()
+# Initialize arrays to keep track of the snake's body positions
+snake_x=($x)
+snake_y=($y)
+
+# Velocity
+dx=1
+dy=0
+
+# Clear the terminal screen
+clear
+
+# Infinite loop to animate the snake
+while true
+do
+  # Clear screen and move the cursor to the top-left corner
+  clear
+  tput cup 0 0
+  
+  # Draw the snake on the screen
+  for ((i=0; i<$height; i++))
+  do
+    for ((j=0; j<$width; j++))
+    do
+      drawn=false
+      # Draw the snake body
+      for ((k=0; k<${#snake_x[@]}; k++))
+      do
+        if [[ $i -eq ${snake_y[$k]} && $j -eq ${snake_x[$k]} ]]; then
+          if [[ $k -eq 0 ]]; then
+            echo -ne "$head"  # Head of the snake
+          else
+            echo -ne "$body"  # Body of the snake
+          fi
+          drawn=true
+          break
+        fi
+      done
+      if [ "$drawn" = false ]; then
+        echo -n " "
+      fi
+    done
+    echo
+  done
+  
+  # Move the snake by updating its position arrays
+  x=$((x + dx))
+  y=$((y + dy))
+  
+  # Insert new head position at the beginning of the arrays
+  snake_x=($x "${snake_x[@]:0:$((length-1))}")
+  snake_y=($y "${snake_y[@]:0:$((length-1))}")
+
+  # Boundary check and snake bouncing
+  if [[ $x -ge $width || $x -lt 0 ]]; then
+    dx=$((dx * -1))
+  fi
+  if [[ $y -ge $height || $y -lt 0 ]]; then
+    dy=$((dy * -1))
+  fi
+
+  # Slow down the animation for visibility
+  sleep 0.2
+done
