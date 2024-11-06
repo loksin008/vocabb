@@ -9,6 +9,12 @@ MAGENTA='\033[0;35m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
+# Function to show the back option
+function back_option {
+    read -p "Press Enter to go back to the main menu..." # Wait for user to press Enter to continue
+    clear # Clears the screen
+}
+
 # Main loop to display menu repeatedly until exit
 while true; do
     # Display menu
@@ -16,7 +22,6 @@ while true; do
     echo "1. Fruits"
     echo "2. Vegetables"
     echo "3. Flowers"
-    # ...other categories
     echo "17. Famous Temples of India"
     echo "18. Top Railway Stations in India"
     echo "19. Airports in India"
@@ -87,54 +92,63 @@ while true; do
             for temple in "${!temples[@]}"; do
                 echo "$temple - ${temples[$temple]}"
             done
+            back_option # Prompt user to go back to the main menu
             ;;
         18)
             echo -e "${BLUE}Top Railway Stations in India:${NC}"
             for station in "${!railway_stations[@]}"; do
                 echo "$station - ${railway_stations[$station]}"
             done
+            back_option # Prompt user to go back to the main menu
             ;;
         19)
             echo -e "${MAGENTA}Airports in India:${NC}"
             for airport in "${!airports[@]}"; do
                 echo "$airport - ${airports[$airport]}"
             done
+            back_option # Prompt user to go back to the main menu
             ;;
         20)
             echo -e "${CYAN}Satellites by India:${NC}"
             for satellite in "${!satellites[@]}"; do
                 echo "$satellite - Launched in ${satellites[$satellite]}"
             done
+            back_option # Prompt user to go back to the main menu
             ;;
         21)
             echo -e "${RED}Nuclear Reactors in India:${NC}"
             for reactor in "${!nuclear_reactors[@]}"; do
                 echo "$reactor - ${nuclear_reactors[$reactor]}"
             done
+            back_option # Prompt user to go back to the main menu
             ;;
         22)
             echo -e "${GREEN}ISRO Centers in India:${NC}"
             for center in "${!isro_centers[@]}"; do
                 echo "$center - ${isro_centers[$center]}"
             done
+            back_option # Prompt user to go back to the main menu
             ;;
         23)
             echo -e "${YELLOW}IITs in India:${NC}"
             for iit in "${!iits[@]}"; do
                 echo "$iit - ${iits[$iit]}"
             done
+            back_option # Prompt user to go back to the main menu
             ;;
         24)
             echo -e "${BLUE}Universities in India:${NC}"
             for university in "${!universities[@]}"; do
                 echo "$university - ${universities[$university]}"
             done
+            back_option # Prompt user to go back to the main menu
             ;;
         25)
             echo -e "${MAGENTA}Distance Learning Universities in India:${NC}"
             for d_university in "${!distance_universities[@]}"; do
                 echo "$d_university - ${distance_universities[$d_university]}"
             done
+            back_option # Prompt user to go back to the main menu
             ;;
         26)
             echo "Exiting the script. Goodbye!"
@@ -144,8 +158,4 @@ while true; do
             echo "Invalid choice. Please select a number from 1 to 26."
             ;;
     esac
-
-    # Prompt to go back to the main menu
-    read -p "Press Enter to go back to the main menu..."
-    clear
 done
