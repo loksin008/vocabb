@@ -1,0 +1,20 @@
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+
+fig, ax = plt.subplots()
+x, y = [], []
+line, = ax.plot([], [], lw=2)
+
+def init():
+    ax.set_xlim(0, 10)
+    ax.set_ylim(0, 10)
+    return line,
+
+def update(frame):
+    x.append(frame)
+    y.append(frame ** 2)
+    line.set_data(x, y)
+    return line,
+
+ani = animation.FuncAnimation(fig, update, frames=range(10), init_func=init)
+plt.show()
