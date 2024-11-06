@@ -125,5 +125,23 @@ while true; do
             done
             ;;
         7)
-            echo -e "${MAGENTA
+            echo -e "${MAGENTA}Verbs:${NC}"
+            for verb in "${!verbs[@]}"; do
+                echo "$verb - ${verbs[$verb]}"
+            done
+            ;;
+        8)
+            echo "Exiting the script. Goodbye!"
+            break
+            ;;
+        *)
+            echo "Invalid choice. Please select a number from 1 to 8."
+            ;;
+    esac
+
+    # Prompt to go back to the main menu
+    read -p "Press Enter to go back to the main menu..."
+    clear
+done
+
             
