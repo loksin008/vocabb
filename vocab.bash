@@ -75,7 +75,7 @@ case $choice in
         done
         ;;
     8)
-        echo "Exiting the script. Goodbye!"
+        echo "Exiting the script. Goodbye from lokesh!"
         exit 0
         ;;
     *)
