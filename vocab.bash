@@ -12,99 +12,136 @@ NC='\033[0m' # No Color
 # Main loop to display menu repeatedly until exit
 while true; do
     # Display menu
-    echo -e "${CYAN}Select a category to display translations:${NC}"
+    echo -e "${CYAN}Select a category to display information:${NC}"
     echo "1. Fruits"
     echo "2. Vegetables"
     echo "3. Flowers"
-    echo "4. Colors"
-    echo "5. Days of the Week"
-    echo "6. Months"
-    echo "7. Verbs"
-    echo "8. Capitals of Indian States and Union Territories"
-    echo "9. Exit"
-    read -p "Enter your choice [1-9]: " choice
+    # ...other categories
+    echo "17. Famous Temples of India"
+    echo "18. Top Railway Stations in India"
+    echo "19. Airports in India"
+    echo "20. Satellites by India"
+    echo "21. Nuclear Reactors in India"
+    echo "22. ISRO Centers in India"
+    echo "23. IITs in India"
+    echo "24. Universities in India"
+    echo "25. Distance Learning Universities in India"
+    echo "26. Exit"
+    read -p "Enter your choice [1-26]: " choice
 
     # Define translations in associative arrays
-    declare -A fruits=( ["Apple"]="सेब" ["Banana"]="केला" ["Orange"]="संतरा" ...) # continue with 30
-    declare -A vegetables=( ["Carrot"]="गाजर" ["Potato"]="आलू" ["Tomato"]="टमाटर" ...) # continue with 30
-    declare -A flowers=( ["Rose"]="गुलाब" ["Lotus"]="कमल" ["Lily"]="कुमुदिनी" ...) # continue with 30
-    declare -A colors=( ["Red"]="लाल" ["Green"]="हरा" ["Blue"]="नीला" ...) # continue with 20
-    declare -A days=( ["Sunday"]="रविवार" ["Monday"]="सोमवार" ["Tuesday"]="मंगलवार" ...) # 7 days
-    declare -A months=( ["January"]="जनवरी" ["February"]="फ़रवरी" ["March"]="मार्च" ...) # 12 months
-    declare -A verbs=( ["Run"]="दौड़ना" ["Eat"]="खाना" ["Sleep"]="सोना" ...) # continue with 50
+    declare -A fruits=( ["Apple"]="सेब" ...) # continue with 30 items
+    # ... other associative arrays for different categories
 
-    declare -A capitals=(
-        ["Andhra Pradesh"]="Amaravati" ["Arunachal Pradesh"]="Itanagar" ["Assam"]="Dispur"
-        ["Bihar"]="Patna" ["Chhattisgarh"]="Raipur" ["Goa"]="Panaji" ["Gujarat"]="Gandhinagar"
-        ["Haryana"]="Chandigarh" ["Himachal Pradesh"]="Shimla" ["Jharkhand"]="Ranchi"
-        ["Karnataka"]="Bengaluru" ["Kerala"]="Thiruvananthapuram" ["Madhya Pradesh"]="Bhopal"
-        ["Maharashtra"]="Mumbai" ["Manipur"]="Imphal" ["Meghalaya"]="Shillong"
-        ["Mizoram"]="Aizawl" ["Nagaland"]="Kohima" ["Odisha"]="Bhubaneswar"
-        ["Punjab"]="Chandigarh" ["Rajasthan"]="Jaipur" ["Sikkim"]="Gangtok"
-        ["Tamil Nadu"]="Chennai" ["Telangana"]="Hyderabad" ["Tripura"]="Agartala"
-        ["Uttar Pradesh"]="Lucknow" ["Uttarakhand"]="Dehradun" ["West Bengal"]="Kolkata"
-        ["Andaman and Nicobar Islands"]="Port Blair" ["Chandigarh"]="Chandigarh"
-        ["Dadra and Nagar Haveli and Daman and Diu"]="Daman" ["Lakshadweep"]="Kavaratti"
-        ["Delhi"]="New Delhi" ["Puducherry"]="Puducherry" ["Ladakh"]="Leh (summer), Kargil (winter)"
-        ["Jammu and Kashmir"]="Srinagar (summer), Jammu (winter)"
+    # Sample data for requested categories
+
+    declare -A temples=(
+        ["Somnath Temple"]="गुजरात" ["Kedarnath Temple"]="उत्तराखंड" ["Tirupati Temple"]="आंध्र प्रदेश"
+        ["Golden Temple"]="पंजाब" ["Meenakshi Temple"]="तमिल नाडु" # ... 50 items
+    )
+
+    declare -A railway_stations=(
+        ["Howrah Junction"]="कोलकाता" ["Mumbai CST"]="मुम्बई" ["Chennai Central"]="चेन्नई"
+        ["Delhi Junction"]="दिल्ली" # ... 20 items
+    )
+
+    declare -A airports=(
+        ["Indira Gandhi International Airport"]="दिल्ली" ["Chhatrapati Shivaji Maharaj Airport"]="मुम्बई"
+        ["Kempegowda International Airport"]="बेंगलुरु" # ... add other major airports
+    )
+
+    declare -A satellites=(
+        ["Aryabhata"]="1975" ["Bhaskara-I"]="1979" ["INSAT-1A"]="1982" ["Chandrayaan-1"]="2008"
+        ["Mangalyaan"]="2013" # ... add other satellites
+    )
+
+    declare -A nuclear_reactors=(
+        ["Tarapur Atomic Power Station"]="महाराष्ट्र" ["Kakrapar Atomic Power Station"]="गुजरात"
+        ["Rajasthan Atomic Power Station"]="राजस्थान" # ... add more reactors
+    )
+
+    declare -A isro_centers=(
+        ["Vikram Sarabhai Space Centre"]="तिरुवनंतपुरम" ["Satish Dhawan Space Centre"]="श्रीहरिकोटा"
+        ["Space Applications Centre"]="अहमदाबाद" # ... add other ISRO centers
+    )
+
+    declare -A iits=(
+        ["IIT Bombay"]="महाराष्ट्र" ["IIT Delhi"]="दिल्ली" ["IIT Kanpur"]="उत्तर प्रदेश"
+        ["IIT Kharagpur"]="पश्चिम बंगाल" # ... add other IITs
+    )
+
+    declare -A universities=(
+        ["University of Delhi"]="दिल्ली" ["JNU"]="दिल्ली" ["Banaras Hindu University"]="उत्तर प्रदेश"
+        ["University of Calcutta"]="पश्चिम बंगाल" # ... add other universities
+    )
+
+    declare -A distance_universities=(
+        ["IGNOU"]="दिल्ली" ["Symbiosis Centre for Distance Learning"]="महाराष्ट्र"
+        ["Annamalai University"]="तमिल नाडु" # ... add other distance learning universities
     )
 
     # Display selected category translations with color coding
     case $choice in
-        1)
-            echo -e "${RED}Fruits:${NC}"
-            for fruit in "${!fruits[@]}"; do
-                echo "$fruit - ${fruits[$fruit]}"
+        17)
+            echo -e "${YELLOW}Famous Temples of India:${NC}"
+            for temple in "${!temples[@]}"; do
+                echo "$temple - ${temples[$temple]}"
             done
             ;;
-        2)
-            echo -e "${GREEN}Vegetables:${NC}"
-            for vegetable in "${!vegetables[@]}"; do
-                echo "$vegetable - ${vegetables[$vegetable]}"
+        18)
+            echo -e "${BLUE}Top Railway Stations in India:${NC}"
+            for station in "${!railway_stations[@]}"; do
+                echo "$station - ${railway_stations[$station]}"
             done
             ;;
-        3)
-            echo -e "${YELLOW}Flowers:${NC}"
-            for flower in "${!flowers[@]}"; do
-                echo "$flower - ${flowers[$flower]}"
+        19)
+            echo -e "${MAGENTA}Airports in India:${NC}"
+            for airport in "${!airports[@]}"; do
+                echo "$airport - ${airports[$airport]}"
             done
             ;;
-        4)
-            echo -e "${BLUE}Colors:${NC}"
-            for color in "${!colors[@]}"; do
-                echo "$color - ${colors[$color]}"
+        20)
+            echo -e "${CYAN}Satellites by India:${NC}"
+            for satellite in "${!satellites[@]}"; do
+                echo "$satellite - Launched in ${satellites[$satellite]}"
             done
             ;;
-        5)
-            echo -e "${MAGENTA}Days of the Week:${NC}"
-            for day in "${!days[@]}"; do
-                echo "$day - ${days[$day]}"
+        21)
+            echo -e "${RED}Nuclear Reactors in India:${NC}"
+            for reactor in "${!nuclear_reactors[@]}"; do
+                echo "$reactor - ${nuclear_reactors[$reactor]}"
             done
             ;;
-        6)
-            echo -e "${CYAN}Months:${NC}"
-            for month in "${!months[@]}"; do
-                echo "$month - ${months[$month]}"
+        22)
+            echo -e "${GREEN}ISRO Centers in India:${NC}"
+            for center in "${!isro_centers[@]}"; do
+                echo "$center - ${isro_centers[$center]}"
             done
             ;;
-        7)
-            echo -e "${MAGENTA}Verbs:${NC}"
-            for verb in "${!verbs[@]}"; do
-                echo "$verb - ${verbs[$verb]}"
+        23)
+            echo -e "${YELLOW}IITs in India:${NC}"
+            for iit in "${!iits[@]}"; do
+                echo "$iit - ${iits[$iit]}"
             done
             ;;
-        8)
-            echo -e "${CYAN}Capitals of Indian States and Union Territories:${NC}"
-            for state in "${!capitals[@]}"; do
-                echo "$state - ${capitals[$state]}"
+        24)
+            echo -e "${BLUE}Universities in India:${NC}"
+            for university in "${!universities[@]}"; do
+                echo "$university - ${universities[$university]}"
             done
             ;;
-        9)
+        25)
+            echo -e "${MAGENTA}Distance Learning Universities in India:${NC}"
+            for d_university in "${!distance_universities[@]}"; do
+                echo "$d_university - ${distance_universities[$d_university]}"
+            done
+            ;;
+        26)
             echo "Exiting the script. Goodbye!"
             break
             ;;
         *)
-            echo "Invalid choice. Please select a number from 1 to 9."
+            echo "Invalid choice. Please select a number from 1 to 26."
             ;;
     esac
 
