@@ -209,4 +209,5 @@ while true; do
         *)
             echo "Invalid choice. Please select a number from 1 to 26."
             ;;
-            
+    esac
+done
