@@ -1,23 +1,23 @@
 #!/bin/bash
 
-# Initialize the screen size
-width=50
-height=20
+# Get the terminal screen size dynamically
+width=$(tput cols)
+height=$(tput lines)
 
-# Snake body represented by characters and color
-head="\e[31mO\e[0m"  # Red color for the snake head
-body="\e[31mo\e[0m"  # Red color for the snake body
+# Snake representation in red color
+head="\e[31mO\e[0m"   # Snake head
+body="\e[31mo\e[0m"   # Snake body
 
-# Snake initial position and length
-x=10
-y=10
-length=10  # Initial length of the snake
+# Snake's initial position, length, and direction
+x=$((width / 2))
+y=$((height / 2))
+length=20  # Initial length of the snake
 
-# Initialize arrays to keep track of the snake's body positions
+# Arrays to track the snake's body positions
 snake_x=($x)
 snake_y=($y)
 
-# Velocity
+# Initial velocity (moving right)
 dx=1
 dy=0
 
@@ -65,7 +65,7 @@ do
   snake_x=($x "${snake_x[@]:0:$((length-1))}")
   snake_y=($y "${snake_y[@]:0:$((length-1))}")
 
-  # Boundary check and snake bouncing
+  # Bounce the snake off the walls
   if [[ $x -ge $width || $x -lt 0 ]]; then
     dx=$((dx * -1))
   fi
@@ -73,6 +73,17 @@ do
     dy=$((dy * -1))
   fi
 
-  # Slow down the animation for visibility
-  sleep 0.2
+  # Change direction randomly every few steps
+  if (( RANDOM % 10 == 0 )); then
+    direction=$((RANDOM % 4))
+    case $direction in
+      0) dx=1; dy=0 ;;   # Move right
+      1) dx=-1; dy=0 ;;  # Move left
+      2) dx=0; dy=1 ;;   # Move down
+      3) dx=0; dy=-1 ;;  # Move up
+    esac
+  fi
+
+  # Slow down the animation
+  sleep 0.1
 done
